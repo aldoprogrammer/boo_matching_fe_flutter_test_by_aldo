@@ -6,6 +6,25 @@ class ProfileCard extends StatelessWidget {
 
   final Profile profile;
 
+  static Color _personalityColor(String type) {
+    switch (type.toUpperCase()) {
+      case 'INFP':
+      case 'INFJ':
+        return const Color(0xFFFFE08A); // warm yellow
+      case 'ENFJ':
+      case 'ENFP':
+        return const Color(0xFFB2F2E6); // soft teal
+      case 'ESFJ':
+      case 'ESFP':
+        return const Color(0xFFFFF1B8); // pale yellow
+      case 'INTJ':
+      case 'INTP':
+        return const Color(0xFFD9C2FF); // lavender
+      default:
+        return Colors.white.withValues(alpha: 0.2);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -158,25 +177,26 @@ class ProfileCard extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 10),
-                      Wrap(
-                        spacing: 8,
-                        runSpacing: 4,
-                        children: profile.tags
-                            .map(
-                              (tag) => Chip(
-                                backgroundColor: Colors.white.withValues(
-                                  alpha: 0.18,
-                                ),
-                                label: Text(
-                                  tag,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
-                            )
-                            .toList(),
+                      Row(
+                        children: [
+                          _InfoChip(
+                            label: '${profile.age}',
+                            bg: const Color(0xFFF47BA5),
+                            fg: Colors.white,
+                          ),
+                          const SizedBox(width: 8),
+                          _InfoChip(
+                            label: profile.personality,
+                            bg: _personalityColor(profile.personality),
+                            fg: Colors.black87,
+                          ),
+                          const SizedBox(width: 8),
+                          _InfoChip(
+                            label: profile.zodiac,
+                            bg: Colors.black87,
+                            fg: Colors.white,
+                          ),
+                        ],
                       ),
                       const SizedBox(height: 8),
                       Text(
@@ -199,6 +219,36 @@ class ProfileCard extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _InfoChip extends StatelessWidget {
+  const _InfoChip({required this.label, required this.bg, required this.fg});
+
+  final String label;
+  final Color bg;
+  final Color fg;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: bg,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.15),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Text(
+        label,
+        style: TextStyle(color: fg, fontWeight: FontWeight.w700),
+      ),
     );
   }
 }
