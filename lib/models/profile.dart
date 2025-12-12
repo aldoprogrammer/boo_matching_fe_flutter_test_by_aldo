@@ -6,8 +6,10 @@ class Profile {
     required this.location,
     required this.distance,
     required this.info,
+    required this.age,
+    required this.personality,
+    required this.zodiac,
     required this.imageUrl,
-    required this.tags,
     required this.compatibility,
     required this.gradient,
   });
@@ -16,8 +18,10 @@ class Profile {
   final String location;
   final String distance;
   final String info;
+  final int age;
+  final String personality;
+  final String zodiac;
   final String imageUrl;
-  final List<String> tags;
   final String compatibility;
   final Gradient gradient;
 }
