@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import '../models/profile_detail.dart';
 import '../models/profile.dart';
 
 class MatchingController {
   final List<Profile> profiles = [
     const Profile(
+      id: 1,
       name: 'Nanaa',
       location: 'Bengkulu, Indonesia',
       age: 22,
@@ -18,6 +20,7 @@ class MatchingController {
       ),
     ),
     const Profile(
+      id: 2,
       name: 'Sischa',
       location: 'Curup, Bengkulu',
       age: 18,
@@ -32,6 +35,7 @@ class MatchingController {
       ),
     ),
     const Profile(
+      id: 3,
       name: 'Ani',
       location: 'Bengkulu, Indonesia',
       age: 21,
@@ -45,42 +49,79 @@ class MatchingController {
         end: Alignment.bottomCenter,
       ),
     ),
-    const Profile(
-      name: 'Luna',
-      location: 'Jakarta, Indonesia',
-      age: 24,
-      personality: 'ENFJ',
-      zodiac: 'Gemini',
-      imageUrl:
-          'https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=900',
-      gradient: LinearGradient(
-        colors: [Color(0xFFC9D6FF), Color(0xFFE2E2E2)],
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-      ),
-    ),
   ];
 
-  late final PageController pageController = PageController(
-    viewportFraction: 1.0,
-  );
+  // Dummy per-profile details keyed by id.
+  final Map<int, ProfileDetail> profileDetails = {
+    1: ProfileDetail(
+      lookingFor: ['Dating', 'Friends', 'Short term'],
+      languages: ['English', 'Bahasa'],
+      interests: ['design', 'sunset walks', 'coffee', 'photography'],
+      typeName: 'Protector',
+      typeStatus: 'Has Potential',
+      typeSummary:
+          'Supportive, reliable, and patient. Values calm nights and sincere gestures.',
+      cognitiveScores: {
+        'Introverted': '--',
+        'Sensing': '--',
+        'Feeling': '--',
+        'Judging': '--',
+      },
+    ),
+    2: ProfileDetail(
+      lookingFor: ['Dating', 'Coffee chat'],
+      languages: ['English', 'Indonesian'],
+      interests: ['travel', 'makeup', 'k-pop', 'ramen'],
+      typeName: 'Caregiver',
+      typeStatus: 'Most Popular',
+      typeSummary:
+          'Warm and organised. Loves shared adventures and daily care over big surprises.',
+      cognitiveScores: {
+        'Extroverted': '54%',
+        'Sensing': '51%',
+        'Feeling': '63%',
+        'Judging': '55%',
+      },
+    ),
+    3: ProfileDetail(
+      lookingFor: ['Friends', 'Collab'],
+      languages: ['English'],
+      interests: ['hiking', 'acoustic', 'documentaries'],
+      typeName: 'Mastermind',
+      typeStatus: 'Challenging',
+      typeSummary:
+          'Reserved but loyal. Prefers slow, intentional connections and deep talks.',
+      cognitiveScores: {
+        'Introverted': '61%',
+        'Intuitive': '58%',
+        'Thinking': '62%',
+        'Judging': '57%',
+      },
+    ),
+  };
 
   int currentIndex = 0;
 
-  void updateIndex(int index) {
-    currentIndex = index;
+  Profile get currentProfile {
+    if (profiles.isEmpty) {
+      throw StateError('No profiles available.');
+    }
+    return profiles[currentIndex % profiles.length];
   }
 
-  void animateToNext() {
-    final nextIndex = currentIndex + 1 < profiles.length ? currentIndex + 1 : 0;
-    pageController.animateToPage(
-      nextIndex,
-      duration: const Duration(milliseconds: 450),
-      curve: Curves.easeInOut,
-    );
+  Profile get nextProfile {
+    if (profiles.isEmpty) {
+      throw StateError('No profiles available.');
+    }
+    return profiles[(currentIndex + 1) % profiles.length];
   }
 
-  void dispose() {
-    pageController.dispose();
+  void advance() {
+    if (profiles.isEmpty) return;
+    currentIndex = (currentIndex + 1) % profiles.length;
   }
+
+  ProfileDetail? detailFor(Profile profile) => profileDetails[profile.id];
+
+  void dispose() {}
 }

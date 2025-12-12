@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class Profile {
   const Profile({
+    required this.id,
     required this.name,
     required this.location,
     required this.age,
@@ -11,6 +12,7 @@ class Profile {
     required this.gradient,
   });
 
+  final int id;
   final String name;
   final String location;
   final int age;
