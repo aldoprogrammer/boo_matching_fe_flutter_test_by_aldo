@@ -91,8 +91,8 @@ class _MatchingPageState extends State<MatchingPage> {
                           turns: rotation,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 14,
+                              horizontal: 8,
+                              vertical: 10,
                             ),
                             child: ProfileCard(profile: profile),
                           ),
