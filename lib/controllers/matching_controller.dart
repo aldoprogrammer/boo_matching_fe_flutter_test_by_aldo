@@ -6,12 +6,9 @@ class MatchingController {
     const Profile(
       name: 'Nanaa',
       location: 'Bengkulu, Indonesia',
-      distance: '2 km away',
-      info: 'INFP - Libra',
       age: 22,
       personality: 'INFP',
       zodiac: 'Libra',
-      compatibility: 'Level 92% match vibes',
       imageUrl:
           'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=900',
       gradient: LinearGradient(
@@ -23,12 +20,9 @@ class MatchingController {
     const Profile(
       name: 'Sischa',
       location: 'Curup, Bengkulu',
-      distance: '4 km away',
-      info: 'ESFJ - Sagittarius',
       age: 18,
       personality: 'ESFJ',
       zodiac: 'Sagittarius',
-      compatibility: 'Level 88% match vibes',
       imageUrl:
           'https://images.pexels.com/photos/247322/pexels-photo-247322.jpeg?auto=compress&cs=tinysrgb&w=900',
       gradient: LinearGradient(
@@ -40,12 +34,9 @@ class MatchingController {
     const Profile(
       name: 'Ani',
       location: 'Bengkulu, Indonesia',
-      distance: '5 km away',
-      info: 'INFP - Capricorn',
       age: 21,
       personality: 'INFP',
       zodiac: 'Capricorn',
-      compatibility: 'Level 84% match vibes',
       imageUrl:
           'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80',
       gradient: LinearGradient(
@@ -57,12 +48,9 @@ class MatchingController {
     const Profile(
       name: 'Luna',
       location: 'Jakarta, Indonesia',
-      distance: '7 km away',
-      info: 'ENFJ - Gemini',
       age: 24,
       personality: 'ENFJ',
       zodiac: 'Gemini',
-      compatibility: 'Level 90% match vibes',
       imageUrl:
           'https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=900',
       gradient: LinearGradient(

@@ -86,53 +86,13 @@ class ProfileCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(20),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment:
+                        MainAxisAlignment.end, // <-- ini bikin konten di bawah
+                    crossAxisAlignment:
+                        CrossAxisAlignment.start, // biar rata kiri
                     children: [
                       Row(
                         children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 8,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.white.withValues(alpha: 0.18),
-                              borderRadius: BorderRadius.circular(18),
-                            ),
-                            child: Text(
-                              profile.distance,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                          const Spacer(),
-                          CircleAvatar(
-                            backgroundColor: Colors.white.withValues(
-                              alpha: 0.8,
-                            ),
-                            child: const Icon(
-                              Icons.bubble_chart,
-                              color: Color(0xFF27C9C2),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Spacer(),
-                      Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 20,
-                            backgroundColor: Colors.white.withValues(
-                              alpha: 0.85,
-                            ),
-                            child: const Icon(
-                              Icons.emoji_emotions,
-                              color: Color(0xFF27C9C2),
-                            ),
-                          ),
-                          const SizedBox(width: 10),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -158,15 +118,15 @@ class ProfileCard extends StatelessWidget {
                               Row(
                                 children: [
                                   const Icon(
-                                    Icons.location_pin,
-                                    size: 16,
+                                    Icons.location_on_outlined,
+                                    size: 23,
                                     color: Colors.white70,
                                   ),
                                   const SizedBox(width: 4),
                                   Text(
                                     profile.location,
                                     style: const TextStyle(
-                                      color: Colors.white70,
+                                      color: Colors.white,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
@@ -197,19 +157,6 @@ class ProfileCard extends StatelessWidget {
                             fg: Colors.white,
                           ),
                         ],
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        profile.compatibility,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        profile.info,
-                        style: const TextStyle(color: Colors.white70),
                       ),
                     ],
                   ),
