@@ -24,36 +24,36 @@ class ActionButtons extends StatelessWidget {
         children: [
           _ActionCircle(
             size: medSize,
-            child: SvgPicture.string(_boostSvg),
             tooltip: 'Boost',
             onTap: () {},
+            child: SvgPicture.string(_boostSvg),
           ),
           _ActionCircle(
             size: bigSize,
-            child: SvgPicture.string(_closeSvg, width: 32, height: 32),
             tooltip: 'Pass',
             onTap: onSkip,
+            child: SvgPicture.string(_closeSvg, width: 32, height: 32),
           ),
           _ActionCircle(
             size: bigSize,
-            child: SvgPicture.string(_likeSvg, width: 32, height: 32),
             tooltip: 'Love',
             onTap: onLike,
+            child: SvgPicture.string(_likeSvg, width: 32, height: 32),
           ),
           _ActionCircle(
             size: medSize,
-            child: SvgPicture.string(_superLikeSvg, width: 30, height: 30),
             tooltip: 'Super Love',
             onTap: onSuperLike,
+            child: SvgPicture.string(_superLikeSvg, width: 30, height: 30),
           ),
           _ActionCircle(
             size: medSize,
+            tooltip: 'DM',
+            onTap: () {},
             child: Transform.rotate(
               angle: -20 * 3.1415926535 / 180,
               child: SvgPicture.string(_dmSvg),
             ),
-            tooltip: 'DM',
-            onTap: () {},
           ),
         ],
       ),
