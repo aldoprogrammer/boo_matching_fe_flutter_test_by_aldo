@@ -19,14 +19,6 @@ class ActionButtons extends StatelessWidget {
     const double medSize = 60;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.bottomCenter,
-          end: Alignment.topCenter,
-          colors: [Color(0xE0E0F7F5), Color(0x00FFFFFF)],
-          stops: [0.0, 1.0],
-        ),
-      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -38,7 +30,7 @@ class ActionButtons extends StatelessWidget {
           ),
           _ActionCircle(
             size: bigSize,
-            child: const Icon(Icons.close, color: Color(0xFFF45C43), size: 32),
+            child: const Icon(Icons.close, color: Color(0xFFF24c36), size: 32),
             tooltip: 'Pass',
             onTap: onSkip,
           ),
@@ -46,7 +38,7 @@ class ActionButtons extends StatelessWidget {
             size: medSize,
             child: const Icon(
               Icons.favorite,
-              color: Color(0xFFF45C43),
+              color: Color(0xFF4EDCD4),
               size: 30,
             ),
             tooltip: 'Super Love',
@@ -56,7 +48,7 @@ class ActionButtons extends StatelessWidget {
             size: bigSize,
             child: const Icon(
               Icons.favorite,
-              color: Color(0xFFF47BA5),
+              color: Color(0xFFFF6689),
               size: 32,
             ),
             tooltip: 'Love',
