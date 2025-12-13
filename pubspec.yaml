@@ -63,6 +63,11 @@ flutter:
       - assets/global/
       - assets/global/icons/close.gif
       - assets/global/icons/favorite.gif
+      - assets/global/personality/esfj.jpg
+      - assets/global/personality/infp.jpg
+      - assets/global/users/sischa.jpg
+      - assets/global/users/nana.jpeg
+      - assets/global/users/ani.jpeg
     # - images/a_dot_burr.jpeg
     # - images/a_dot_ham.jpeg
 
