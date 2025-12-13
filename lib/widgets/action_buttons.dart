@@ -1,5 +1,47 @@
+import 'dart:ui';
+
+import 'package:boo_matching_fe_flutter_test_by_aldo/widgets/icons/boost_icon.dart';
+import 'package:boo_matching_fe_flutter_test_by_aldo/widgets/icons/close_x_icon.dart';
+import 'package:boo_matching_fe_flutter_test_by_aldo/widgets/icons/dm_icon.dart';
+import 'package:boo_matching_fe_flutter_test_by_aldo/widgets/icons/like_heart_icon.dart';
+import 'package:boo_matching_fe_flutter_test_by_aldo/widgets/icons/super_like_heart_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
+class BottomControls extends StatelessWidget {
+  const BottomControls({
+    super.key,
+    required this.onSkip,
+    required this.onLike,
+    required this.onSuperLike,
+    this.activeIndex = 0,
+    this.onMenuTap,
+  });
+
+  final VoidCallback onSkip;
+  final VoidCallback onLike;
+  final VoidCallback onSuperLike;
+  final int activeIndex;
+  final ValueChanged<int>? onMenuTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ActionButtons(
+            onSkip: onSkip,
+            onLike: onLike,
+            onSuperLike: onSuperLike,
+          ),
+          const SizedBox(height: 10),
+          _BottomMenu(activeIndex: activeIndex, onTap: onMenuTap),
+        ],
+      ),
+    );
+  }
+}
 
 class ActionButtons extends StatelessWidget {
   const ActionButtons({
@@ -17,45 +59,49 @@ class ActionButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     const double bigSize = 66;
     const double medSize = 60;
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          _ActionCircle(
-            size: medSize,
-            tooltip: 'Boost',
-            onTap: () {},
-            child: SvgPicture.string(_boostSvg),
-          ),
-          _ActionCircle(
-            size: bigSize,
-            tooltip: 'Pass',
-            onTap: onSkip,
-            child: SvgPicture.string(_closeSvg, width: 32, height: 32),
-          ),
-          _ActionCircle(
-            size: bigSize,
-            tooltip: 'Love',
-            onTap: onLike,
-            child: SvgPicture.string(_likeSvg, width: 32, height: 32),
-          ),
-          _ActionCircle(
-            size: medSize,
-            tooltip: 'Super Love',
-            onTap: onSuperLike,
-            child: SvgPicture.string(_superLikeSvg, width: 30, height: 30),
-          ),
-          _ActionCircle(
-            size: medSize,
-            tooltip: 'DM',
-            onTap: () {},
-            child: Transform.rotate(
-              angle: -20 * 3.1415926535 / 180,
-              child: SvgPicture.string(_dmSvg),
+
+    return SizedBox(
+      width: double.infinity,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            _ActionCircle(
+              size: medSize,
+              tooltip: 'Boost',
+              onTap: () {},
+              child: const BoostIcon(size: 28),
             ),
-          ),
-        ],
+            _ActionCircle(
+              size: bigSize,
+              tooltip: 'Pass',
+              onTap: onSkip,
+              child: const CloseXIcon(size: 32),
+            ),
+            _ActionCircle(
+              size: bigSize,
+              tooltip: 'Love',
+              onTap: onLike,
+              child: const LikeHeartIcon(size: 32),
+            ),
+            _ActionCircle(
+              size: medSize,
+              tooltip: 'Super Love',
+              onTap: onSuperLike,
+              child: const SuperLikeHeartIcon(size: 30),
+            ),
+            _ActionCircle(
+              size: medSize,
+              tooltip: 'DM',
+              onTap: () {},
+              child: Transform.rotate(
+                angle: -20 * 3.1415926535 / 180,
+                child: const DmIcon(size: 28),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -103,51 +149,133 @@ class _ActionCircle extends StatelessWidget {
   }
 }
 
-// SVGs from the provided Boo HTML snippet (inlined to avoid extra assets).
-const String _boostSvg = '''
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" fill="none">
-<path fill="#000" fill-rule="evenodd" d="M25.627 4.279c.009.025.017.051.024.077 1.2 4.472-.321 9.356-3.898 12.405l-.548.502.482 1.929.006.023c.416 1.803-.386 3.79-2.018 4.685l-3.768 2.126-.06.032c-.185.092-.388.17-.625.209-.19.031-.366.03-.447.03h-.026c-.052 0-.222.001-.409-.03-.12-.02-.367-.07-.626-.226-.727-.342-1.072-1.026-1.211-1.445a1.346 1.346 0 0 1-.044-.163l-.3-1.501c-.419.072-.828.118-1.222.162-.05.006-.1.008-.15.008h-.097c-.303 0-.616-.052-.925-.189a2.357 2.357 0 0 1-.71-.498l-1.268-1.267c.114.183.208.38.278.591.308.928.304 1.834-.03 2.645-.327.795-.915 1.366-1.543 1.751-1.213.745-2.809.949-4.059.69a1.438 1.438 0 0 1-.416-.157 1.356 1.356 0 0 1-.764-.996c-.224-1.286-.09-2.913.64-4.157.378-.647.954-1.246 1.774-1.561.827-.319 1.74-.285 2.665.036.201.07.393.162.571.274l-.85-.85c-.505-.506-.688-1.174-.688-1.733 0-.111.014-.221.041-.329.057-.228.105-.46.16-.722l.007-.035.048-.228-1.619-.365a1.362 1.362 0 0 1-.13-.037c-.428-.142-1.133-.5-1.467-1.26a2.098 2.098 0 0 1-.283-1.042c0-.439.142-.823.34-1.137l2.095-3.714C5.428 7.11 7.431 6.218 9.33 6.889l1.726.384.536-.633.003-.004c3.148-3.69 7.846-5.113 12.412-3.917.029.007.057.016.085.025.386.128.705.357.942.594.236.236.465.555.593.94ZM11.562 8.774l-2.614-.581c-1.259-.484-2.614.097-3.195 1.258l-2.13 3.776c-.194.29-.194.581 0 .872.097.29.387.484.678.58l3 .678a8.979 8.979 0 0 0-.358 1.309l-.05.24c-.054.259-.108.517-.172.775 0 .29.097.58.29.774l3.002 3.002c.193.193.387.29.677.29h.097c.385-.043.75-.085 1.106-.145.45-.075.882-.177 1.315-.339l.58 2.904c.097.29.29.581.581.678.097.097.29.097.388.097.193 0 .29 0 .484-.097l3.776-2.13c1.064-.58 1.645-1.936 1.355-3.195l-.678-2.71 1.162-1.065c3.195-2.711 4.55-7.068 3.485-11.038a1.17 1.17 0 0 0-.677-.677c-4.067-1.065-8.23.193-11.037 3.485l-1.065 1.259ZM2.588 25.439c-.37-2.122.533-5.128 3.3-4.168.417.144.752.475.89.894.886 2.673-2.182 3.723-4.07 3.333a.068.068 0 0 1-.026-.011c-.013-.008-.036-.022-.094-.048Z" clip-rule="evenodd"/>
-<path fill="#fff" fill-rule="evenodd" d="M20.855 15.746c3.195-2.711 4.55-7.068 3.486-11.037a1.17 1.17 0 0 0-.678-.678c-4.066-1.065-8.23.194-11.037 3.485L11.56 8.775l-2.614-.58c-1.259-.485-2.614.096-3.195 1.258l-2.13 3.776c-.194.29-.194.58 0 .87.097.291.387.485.678.582l3.001.678c-.09.24-.162.482-.224.723-.05.195-.093.39-.134.585l-.05.24c-.054.258-.108.517-.173.775 0 .29.097.581.29.775l3.002 3c.194.194.387.291.678.291h.096c.385-.042.751-.085 1.106-.145.2-.033.395-.071.589-.118.244-.059.485-.13.726-.22l.58 2.904c.097.29.291.58.582.677.096.097.29.097.387.097.193 0 .29 0 .484-.097l3.776-2.13c1.065-.58 1.646-1.936 1.355-3.194l-.678-2.711 1.162-1.065Zm.837 3.47-.006-.023-.482-1.928.549-.503c3.576-3.048 5.096-7.933 3.897-12.405l.73-.195c1.274 4.751-.338 9.93-4.127 13.166l-.207.19.374 1.498.008.031c.485 2.105-.438 4.442-2.387 5.514l-3.764 2.124-.093.05c-.234.116-.51.223-.84.278l-.123-.745a2.18 2.18 0 0 0 .685-.241l3.768-2.126c1.632-.896 2.434-2.881 2.018-4.684Zm-6.916 7.838c.088 0 .317.001.569-.04l-.124-.746c-.189.032-.366.031-.447.03h-.026c-.052 0-.222.001-.409-.03-.12-.02-.367-.07-.626-.226-.727-.342-1.072-1.026-1.211-1.445a1.35 1.35 0 0 1-.043-.162l-.3-1.502c-.42.072-.829.119-1.223.163-.05.005-.1.008-.15.008h-.096c-.304 0-.617-.052-.926-.19a2.355 2.355 0 0 1-.71-.498L7.785 21.15c.115.183.208.381.278.591.108.325.177.647.208.963a3.494 3.494 0 0 1-.238 1.683c-.327.794-.915 1.365-1.543 1.75-1.213.745-2.809.949-4.058.69a1.44 1.44 0 0 1-.417-.156 1.356 1.356 0 0 1-.764-.997c-.224-1.285-.09-2.913.64-4.157.378-.647.954-1.245 1.774-1.56a3.491 3.491 0 0 1 1.679-.196 4.907 4.907 0 0 1 .987.231c.2.07.392.162.57.274l-.85-.85a2.235 2.235 0 0 1-.288-.355c-.289-.44-.4-.942-.4-1.378 0-.11.014-.221.041-.329.057-.228.106-.46.16-.722l.007-.035.048-.227-1.619-.366a1.334 1.334 0 0 1-.13-.036c-.428-.143-1.133-.5-1.466-1.26a2.098 2.098 0 0 1-.284-1.043c0-.439.142-.823.34-1.137l2.095-3.714C5.427 7.111 7.43 6.22 9.33 6.891l1.726.383.536-.633.004-.004c3.147-3.69 7.845-5.113 12.411-3.917.029.007.057.016.085.025.386.129.706.358.942.594a2.445 2.445 0 0 1 .617 1.018l.73-.195-.037-.12a3.2 3.2 0 0 0-.776-1.237 3.2 3.2 0 0 0-1.237-.776 2.098 2.098 0 0 0-.132-.04c-4.845-1.268-9.841.246-13.178 4.158l-.004.005-.242.286-1.238-.275c-2.256-.772-4.613.293-5.644 2.292l-2.08 3.686a2.872 2.872 0 0 0-.446 1.523c0 .531.151.998.363 1.382.464 1.019 1.394 1.467 1.903 1.637.067.022.134.041.203.056l.892.202-.054.23a2.11 2.11 0 0 0-.064.511c0 .4.073.854.259 1.296a4.13 4.13 0 0 0-1.474.272c-1.016.391-1.711 1.128-2.154 1.884-.842 1.438-.978 3.258-.732 4.67a2.11 2.11 0 0 0 1.16 1.537 2.2 2.2 0 0 0 .612.226c1.42.293 3.215.068 4.606-.787.73-.447 1.445-1.13 1.846-2.107a4.15 4.15 0 0 0 .303-1.3 2.937 2.937 0 0 0 1.655.486h.096c.078 0 .156-.004.233-.013.174-.02.354-.04.54-.063l.159.8c.017.086.04.17.067.253.167.5.6 1.4 1.573 1.873.364.21.702.278.857.304.25.042.47.041.533.04h.028ZM2.681 25.488c.01.006.015.01.026.011 1.888.39 4.956-.66 4.07-3.332a1.432 1.432 0 0 0-.89-.895c-2.766-.96-3.67 2.047-3.3 4.169.058.025.08.039.094.047Zm.592-.673c-.05-.805.099-1.65.44-2.233.198-.338.439-.552.71-.657.268-.103.656-.134 1.217.06.202.07.358.23.42.42.174.522.136.9.022 1.177-.118.287-.35.544-.695.756-.593.364-1.41.524-2.114.477Zm16.364-5.117-.676-2.704a.755.755 0 0 1 .222-.74l1.162-1.065.022-.02c2.965-2.515 4.225-6.555 3.253-10.231a.411.411 0 0 0-.08-.107.414.414 0 0 0-.105-.079c-3.776-.975-7.624.194-10.233 3.253l-.002.001-1.063 1.257a.755.755 0 0 1-.74.25L8.783 8.93a.754.754 0 0 1-.107-.032c-.878-.338-1.833.06-2.249.891a.763.763 0 0 1-.017.034L4.28 13.6a.733.733 0 0 1-.04.064l.01.017c.035.052.064.11.084.169a.564.564 0 0 0 .175.104l2.958.668a.755.755 0 0 1 .541 1.002c-.143.38-.235.77-.327 1.2l-.05.238v.006c-.047.22-.095.451-.151.686a.315.315 0 0 0 .065.169l3 3c.052.052.076.063.076.063l.012.003a.304.304 0 0 0 .057.004h.054c.369-.04.703-.08 1.024-.134.417-.07.8-.162 1.174-.302a.755.755 0 0 1 1.005.56l.57 2.85a.556.556 0 0 0 .102.167.744.744 0 0 1 .12.054h.017a2.704 2.704 0 0 0 .113-.002.363.363 0 0 0 .02-.008l3.765-2.125c.744-.405 1.2-1.404.983-2.355Z" clip-rule="evenodd"/>
-<path fill="#4EDCD4" fill-rule="evenodd" d="M24.34 4.708a1.17 1.17 0 0 0-.678-.678c-4.066-1.065-8.23.193-11.037 3.485L11.56 8.774l-2.614-.581c-1.259-.484-2.614.097-3.195 1.259l-2.13 3.775c-.193.29-.193.581 0 .872.097.29.387.484.678.58l3.001.678c-.193.517-.301 1.033-.409 1.55-.053.258-.107.516-.172.774 0 .29.097.58.29.774l3.002 3.002c.194.193.387.29.678.29h.097c.87-.097 1.645-.194 2.42-.484l.58 2.904c.098.291.291.581.582.678.097.097.29.097.387.097.194 0 .29 0 .484-.097l3.776-2.13c1.065-.58 1.646-1.936 1.355-3.195l-.677-2.71 1.161-1.065c3.195-2.711 4.55-7.068 3.486-11.037ZM6.777 22.165c.885 2.673-2.183 3.723-4.071 3.333-.01-.002-.015-.005-.026-.011-.013-.008-.036-.022-.093-.048-.37-2.121.533-5.128 3.3-4.168.416.144.75.476.89.894ZM20.063 10.93a2.642 2.642 0 1 0 0-5.285 2.642 2.642 0 0 0 0 5.285Z" clip-rule="evenodd"/>
-<path fill="#000" fill-rule="evenodd" d="M20.072 9.917a1.63 1.63 0 1 0 0-3.26 1.63 1.63 0 0 0 0 3.26Zm0 1.2a2.83 2.83 0 1 0 0-5.66 2.83 2.83 0 0 0 0 5.66Z" clip-rule="evenodd"/>
-</svg>
-''';
+class _BottomMenu extends StatelessWidget {
+  const _BottomMenu({required this.activeIndex, required this.onTap});
 
-const String _dmSvg = '''
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" fill="none">
-<path fill="#000" fill-rule="evenodd" d="M11.927 17.447a1.977 1.977 0 0 0-.574 1.356c-.02 1.262-.033 3.853.123 6.473.073 1.22 1.475 1.747 2.345.889 2.948-2.91 8.41-8.738 12.394-15.553a1.865 1.865 0 0 0-1.336-2.8C17.074 6.62 9.109 7.2 4.992 7.662c-1.214.135-1.687 1.557-.784 2.381 1.938 1.77 3.96 3.39 4.954 4.168.401.314.908.457 1.416.407l4.58-.45-3.23 3.279ZM4.825 6.17c4.167-.467 12.284-1.062 20.28.158a3.365 3.365 0 0 1 2.405 5.04c-4.082 6.982-9.651 12.918-12.635 15.863-1.77 1.747-4.745.664-4.896-1.866-.16-2.675-.146-5.31-.126-6.587a3.477 3.477 0 0 1 1.006-2.385l.323-.328-.458.045a3.478 3.478 0 0 1-2.487-.72c-1.006-.787-3.062-2.434-5.041-4.24-1.872-1.71-.842-4.703 1.629-4.98Z" clip-rule="evenodd"/>
-<path fill="#fff" fill-rule="evenodd" d="M11.928 17.447a1.978 1.978 0 0 0-.574 1.357c-.02 1.261-.033 3.853.123 6.473.073 1.22 1.475 1.746 2.345.888 2.948-2.91 8.41-8.737 12.394-15.553a1.865 1.865 0 0 0-1.336-2.8c-7.805-1.19-15.77-.611-19.887-.15-1.214.136-1.687 1.558-.785 2.382 1.938 1.77 3.962 3.39 4.955 4.167.401.315.908.457 1.415.407l4.58-.449-3.23 3.278Zm12.79-8.576C17.05 7.701 9.192 8.27 5.112 8.727c-.18.02-.258.115-.288.204a.266.266 0 0 0-.006.15.35.35 0 0 0 .113.171c1.909 1.744 3.908 3.345 4.892 4.116.18.14.41.208.65.184l4.581-.449a1.071 1.071 0 0 1 .868 1.819l-3.23 3.277a.907.907 0 0 0-.267.622c-.02 1.25-.033 3.811.121 6.392.007.1.036.16.064.196.03.04.07.07.12.089.087.033.21.032.34-.095 2.921-2.884 8.306-8.635 12.22-15.332a.793.793 0 0 0-.572-1.2ZM9.727 16.067a3.457 3.457 0 0 1-1.49-.675c-1.005-.787-3.062-2.434-5.04-4.24-1.872-1.71-.842-4.704 1.629-4.98 4.167-.468 12.284-1.062 20.28.157a3.365 3.365 0 0 1 2.405 5.04c-3.915 6.696-9.197 12.43-12.255 15.486a86.5 86.5 0 0 1-.38.378c-.132.13-.27.244-.414.343-1.784 1.234-4.342.132-4.482-2.21-.16-2.674-.146-5.309-.126-6.586a3.456 3.456 0 0 1 .909-2.283c.031-.035.064-.07.097-.103l.323-.327-.458.044a3.511 3.511 0 0 1-.998-.045Zm-5.02-10.96c4.203-.471 12.428-1.077 20.56.163 3.118.476 4.76 3.917 3.169 6.64-4.152 7.102-9.798 13.115-12.808 16.085-2.406 2.375-6.51.91-6.718-2.565-.162-2.713-.148-5.379-.127-6.667.01-.607.14-1.192.374-1.73a4.519 4.519 0 0 1-1.58-.797c-1.014-.795-3.095-2.46-5.102-4.294-2.572-2.347-1.128-6.46 2.232-6.836Z" clip-rule="evenodd"/>
-<path fill="#4EDCD4" d="M4.208 10.043c-.902-.824-.43-2.246.785-2.382 4.116-.461 12.082-1.04 19.887.15a1.865 1.865 0 0 1 1.336 2.8c-3.985 6.816-9.447 12.644-12.394 15.553-.87.859-2.272.331-2.345-.888-.157-2.62-.143-5.212-.123-6.473.008-.51.216-.993.574-1.357l3.23-3.277-4.58.449a1.978 1.978 0 0 1-1.416-.408c-.993-.777-3.016-2.398-4.954-4.167Z"/>
-</svg>
-''';
+  final int activeIndex;
+  final ValueChanged<int>? onTap;
 
-const String _closeSvg = '''
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
-  <!-- Outline hitam -->
-  <path d="M18 6L6 18M6 6l12 12"
-        stroke="#000"
-        stroke-width="6"
-        stroke-linecap="round"
-        stroke-linejoin="round"/>
-  <!-- Garis merah -->
-  <path d="M18 6L6 18M6 6l12 12"
-        stroke="#F24c36"
-        stroke-width="4.2"
-        stroke-linecap="round"
-        stroke-linejoin="round"/>
-</svg>
-''';
+  static const _activeColor = Color(0xFF4EDCD8);
 
-const String _superLikeSvg = '''
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
-<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke="#000" stroke-width="1.2" fill="#4EDCD4" stroke-linejoin="round"/>
-<ellipse cx="11" cy="9.5" rx="2.5" ry="2" fill="#FFFFFF" fill-opacity="0.6"/>
-</svg>
-''';
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(18),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            decoration: BoxDecoration(
+              color: Colors.transparent,
+              borderRadius: BorderRadius.circular(18),
+            ),
+            child: Material(
+              color: Colors.transparent,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: _BottomMenuItem(
+                      label: 'Match',
+                      isActive: activeIndex == 0,
+                      activeColor: _activeColor,
+                      icon: const SuperLikeHeartIcon(size: 20),
+                      onTap: () => onTap?.call(0),
+                    ),
+                  ),
+                  Expanded(
+                    child: _BottomMenuItem(
+                      label: 'Search',
+                      isActive: activeIndex == 1,
+                      activeColor: _activeColor,
+                      icon: const Icon(Icons.search, size: 20),
+                      onTap: () => onTap?.call(1),
+                    ),
+                  ),
+                  Expanded(
+                    child: _BottomMenuItem(
+                      label: 'Create',
+                      isActive: activeIndex == 2,
+                      activeColor: _activeColor,
+                      icon: const Icon(Icons.add_circle_outline, size: 20),
+                      onTap: () => onTap?.call(2),
+                    ),
+                  ),
+                  Expanded(
+                    child: _BottomMenuItem(
+                      label: 'Universes',
+                      isActive: activeIndex == 3,
+                      activeColor: _activeColor,
+                      icon: const Icon(Icons.public, size: 20),
+                      onTap: () => onTap?.call(3),
+                    ),
+                  ),
+                  Expanded(
+                    child: _BottomMenuItem(
+                      label: 'Messages',
+                      isActive: activeIndex == 4,
+                      activeColor: _activeColor,
+                      icon: const Icon(Icons.mail_outline, size: 20),
+                      onTap: () => onTap?.call(4),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
 
-const String _likeSvg = '''
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
-<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke="#000" stroke-width="1.2" fill="#FF6689" stroke-linejoin="round"/>
-<ellipse cx="11" cy="9.5" rx="2.5" ry="2" fill="#FFFFFF" fill-opacity="0.6"/>
-</svg>
-''';
+class _BottomMenuItem extends StatelessWidget {
+  const _BottomMenuItem({
+    required this.label,
+    required this.icon,
+    required this.isActive,
+    required this.activeColor,
+    required this.onTap,
+  });
+
+  final String label;
+  final Widget icon;
+  final bool isActive;
+  final Color activeColor;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final color = isActive ? activeColor : Colors.black54;
+
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(12),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconTheme(
+                data: IconThemeData(color: color, size: 24),
+                child: icon,
+              ),
+              const SizedBox(height: 6),
+              Text(
+                label,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  color: color,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
