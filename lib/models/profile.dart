@@ -10,6 +10,8 @@ class Profile {
     required this.zodiac,
     required this.imageUrl,
     required this.gradient,
+    this.job,
+    this.education,
   });
 
   final int id;
@@ -20,4 +22,6 @@ class Profile {
   final String zodiac;
   final String imageUrl;
   final Gradient gradient;
+  final String? job;
+  final String? education;
 }

@@ -8,11 +8,12 @@ class MatchingController {
       id: 1,
       name: 'Nanaa',
       location: 'Bengkulu, Indonesia',
+      job: 'UI/UX Designer',
+      education: 'Bina Nusantara University',
       age: 22,
       personality: 'INFP',
       zodiac: 'Libra',
-      imageUrl:
-          'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=900',
+      imageUrl: 'assets/global/users/nana.jpeg',
       gradient: LinearGradient(
         colors: [Color(0xFFFD859E), Color(0xFFFFD3A5)],
         begin: Alignment.topCenter,
@@ -23,11 +24,11 @@ class MatchingController {
       id: 2,
       name: 'Sischa',
       location: 'Curup, Bengkulu',
+      job: 'Barista',
       age: 18,
       personality: 'ESFJ',
       zodiac: 'Sagittarius',
-      imageUrl:
-          'https://images.pexels.com/photos/247322/pexels-photo-247322.jpeg?auto=compress&cs=tinysrgb&w=900',
+      imageUrl: 'assets/global/users/sischa.jpg',
       gradient: LinearGradient(
         colors: [Color(0xFF77E8E2), Color(0xFFC7F0FF)],
         begin: Alignment.topCenter,
@@ -38,11 +39,11 @@ class MatchingController {
       id: 3,
       name: 'Ani',
       location: 'Bengkulu, Indonesia',
+      education: 'Universitas Gajah Mada',
       age: 21,
       personality: 'INFP',
       zodiac: 'Capricorn',
-      imageUrl:
-          'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80',
+      imageUrl: 'assets/global/users/ani.jpeg',
       gradient: LinearGradient(
         colors: [Color(0xFFF5F5F5), Color(0xFFE8EEF3)],
         begin: Alignment.topCenter,
@@ -57,6 +58,8 @@ class MatchingController {
       lookingFor: ['Dating', 'Friends', 'Short term'],
       languages: ['English', 'Bahasa'],
       interests: ['design', 'sunset walks', 'coffee', 'photography'],
+      bio: 'Soft-hearted, curious, and a little bit shy.',
+      whoCares: ['Sometimes', 'Want someday', 'Other'],
       typeName: 'Protector',
       typeStatus: 'Has Potential',
       typeSummary:
@@ -70,8 +73,10 @@ class MatchingController {
     ),
     2: ProfileDetail(
       lookingFor: ['Dating', 'Coffee chat'],
-      languages: ['English', 'Indonesian'],
-      interests: ['travel', 'makeup', 'k-pop', 'ramen'],
+      languages: ['Indonesian'],
+      interests: [],
+      bio: null,
+      whoCares: const [],
       typeName: 'Caregiver',
       typeStatus: 'Most Popular',
       typeSummary:
@@ -84,9 +89,12 @@ class MatchingController {
       },
     ),
     3: ProfileDetail(
-      lookingFor: ['Friends', 'Collab'],
-      languages: ['English'],
-      interests: ['hiking', 'acoustic', 'documentaries'],
+      lookingFor: ['Friends', 'Work buddies', 'Collab'],
+      languages: ['English', 'Japanese'],
+      interests: ['hiking', 'acoustic', 'documentaries', 'learning'],
+      bio:
+          'Bookstore dates, slow mornings, quiet conversations, and stories over noise — always choosing calm corners over loud parties.',
+      whoCares: ['In college', 'Never'],
       typeName: 'Mastermind',
       typeStatus: 'Challenging',
       typeSummary:

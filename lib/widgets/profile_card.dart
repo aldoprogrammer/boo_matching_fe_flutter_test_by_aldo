@@ -6,6 +6,11 @@ class ProfileCard extends StatelessWidget {
 
   final Profile profile;
 
+  static bool _looksLikeNetworkUrl(String value) {
+    final v = value.trim().toLowerCase();
+    return v.startsWith('http://') || v.startsWith('https://');
+  }
+
   static Color _personalityColor(String type) {
     switch (type.toUpperCase()) {
       case 'INFP':
@@ -27,6 +32,15 @@ class ProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final lines = <_ProfileLine>[
+      if ((profile.job ?? '').trim().isNotEmpty)
+        _ProfileLine(Icons.work_outline, profile.job!.trim()),
+      if ((profile.education ?? '').trim().isNotEmpty)
+        _ProfileLine(Icons.school_outlined, profile.education!.trim()),
+      if (profile.location.trim().isNotEmpty)
+        _ProfileLine(Icons.location_on_outlined, profile.location.trim()),
+    ];
+
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -47,27 +61,45 @@ class ProfileCard extends StatelessWidget {
             child: Stack(
               children: [
                 Positioned.fill(
-                  child: Image.network(
-                    profile.imageUrl,
-                    fit: BoxFit.cover,
-                    color: Colors.black.withValues(alpha: 0.22),
-                    colorBlendMode: BlendMode.darken,
-                    loadingBuilder: (context, child, progress) {
-                      if (progress == null) return child;
-                      return Container(
-                        color: Colors.grey[200],
-                        alignment: Alignment.center,
-                        child: const CircularProgressIndicator(
-                          strokeWidth: 2.5,
+                  child: _looksLikeNetworkUrl(profile.imageUrl)
+                      ? Image.network(
+                          profile.imageUrl,
+                          fit: BoxFit.cover,
+                          color: Colors.black.withValues(alpha: 0.22),
+                          colorBlendMode: BlendMode.darken,
+                          loadingBuilder: (context, child, progress) {
+                            if (progress == null) return child;
+                            return Container(
+                              color: Colors.grey[200],
+                              alignment: Alignment.center,
+                              child: const CircularProgressIndicator(
+                                strokeWidth: 2.5,
+                              ),
+                            );
+                          },
+                          errorBuilder: (context, error, stack) => Container(
+                            color: Colors.grey[300],
+                            alignment: Alignment.center,
+                            child: const Icon(
+                              Icons.image_not_supported,
+                              size: 40,
+                            ),
+                          ),
+                        )
+                      : Image.asset(
+                          profile.imageUrl,
+                          fit: BoxFit.cover,
+                          color: Colors.black.withValues(alpha: 0.22),
+                          colorBlendMode: BlendMode.darken,
+                          errorBuilder: (context, error, stack) => Container(
+                            color: Colors.grey[300],
+                            alignment: Alignment.center,
+                            child: const Icon(
+                              Icons.image_not_supported,
+                              size: 40,
+                            ),
+                          ),
                         ),
-                      );
-                    },
-                    errorBuilder: (context, error, stack) => Container(
-                      color: Colors.grey[300],
-                      alignment: Alignment.center,
-                      child: const Icon(Icons.image_not_supported, size: 40),
-                    ),
-                  ),
                 ),
                 Positioned.fill(
                   child: Container(
@@ -91,48 +123,52 @@ class ProfileCard extends StatelessWidget {
                     crossAxisAlignment:
                         CrossAxisAlignment.start, // biar rata kiri
                     children: [
-                      Row(
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          Row(
                             children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    profile.name,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 6),
-                                  const Icon(
-                                    Icons.verified,
-                                    color: Colors.lightBlueAccent,
-                                    size: 20,
-                                  ),
-                                ],
+                              Text(
+                                profile.name,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                              const SizedBox(height: 4),
-                              Row(
+                              const SizedBox(width: 6),
+                              const Icon(
+                                Icons.verified,
+                                color: Colors.lightBlueAccent,
+                                size: 20,
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 4),
+                          ...lines.map(
+                            (l) => Padding(
+                              padding: const EdgeInsets.only(top: 4),
+                              child: Row(
                                 children: [
-                                  const Icon(
-                                    Icons.location_on_outlined,
+                                  Icon(
+                                    l.icon,
                                     size: 23,
                                     color: Colors.white70,
                                   ),
                                   const SizedBox(width: 4),
-                                  Text(
-                                    profile.location,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
+                                  Expanded(
+                                    child: Text(
+                                      l.text,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                     ),
                                   ),
                                 ],
                               ),
-                            ],
+                            ),
                           ),
                         ],
                       ),
@@ -198,4 +234,11 @@ class _InfoChip extends StatelessWidget {
       ),
     );
   }
+}
+
+class _ProfileLine {
+  const _ProfileLine(this.icon, this.text);
+
+  final IconData icon;
+  final String text;
 }

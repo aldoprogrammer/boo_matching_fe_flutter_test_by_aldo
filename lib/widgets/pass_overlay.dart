@@ -29,10 +29,10 @@ class PassOverlay extends StatelessWidget {
             ),
             // Top-left ghost / close GIF.
             Positioned(
-              top: 8,
+              top: 39,
               left: 5,
               child: Transform.rotate(
-                angle: 0.35, // miring ke kiri (sekitar -14 derajat)
+                angle: -0.25, // miring ke kiri (sekitar -14 derajat)
                 child: Image.asset(
                   'assets/global/icons/close.gif',
                   width: 140,

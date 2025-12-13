@@ -29,12 +29,12 @@ class FavoriteOverlay extends StatelessWidget {
             ),
             // Top-left favorite GIF.
             Positioned(
-              top: 8,
+              top: 49,
               right: 8,
               child: Transform.rotate(
                 // Keep the net tilt similar to PassOverlay even when the whole
                 // screen rotates during swipe.
-                angle: -0.35,
+                angle: 0.25,
                 child: Image.asset(
                   'assets/global/icons/favorite.gif',
                   width: 140,

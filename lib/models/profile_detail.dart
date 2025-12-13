@@ -7,6 +7,8 @@ class ProfileDetail {
     required this.typeStatus,
     required this.typeSummary,
     required this.cognitiveScores,
+    this.bio,
+    this.whoCares = const [],
   });
 
   final List<String> lookingFor;
@@ -16,5 +18,6 @@ class ProfileDetail {
   final String typeStatus;
   final String typeSummary;
   final Map<String, String> cognitiveScores;
+  final String? bio;
+  final List<String> whoCares;
 }
-
